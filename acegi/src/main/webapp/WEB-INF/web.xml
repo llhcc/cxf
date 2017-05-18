@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<web-app id="WebApp_ID" version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">  
+    <display-name>MyAcegiProj</display-name>  
+    <!--  context-param  -->  
+    <context-param>  
+        <param-name>contextConfigLocation</param-name>  
+        <param-value>  
+            /WEB-INF/applicationContext-acegi-security.xml  
+        </param-value>  
+    </context-param>  
+      
+    <!--acegi 的filter链代理-->  
+    <filter>  
+        <filter-name>MyAcegiProjFilterChainProxy</filter-name>  
+        <filter-class>  
+            org.acegisecurity.util.FilterToBeanProxy  
+        </filter-class>  
+        <init-param>  
+            <param-name>targetClass</param-name>  
+            <param-value>  
+                org.acegisecurity.util.FilterChainProxy  
+            </param-value>  
+        </init-param>  
+    </filter>  
+    <filter-mapping>  
+        <filter-name>MyAcegiProjFilterChainProxy</filter-name>  
+        <url-pattern>/*</url-pattern>  
+    </filter-mapping>  
+      
+    <!--  
+        装载应用软件的Spring上下文  
+        要由WebapplicationContextUtils.getWebApplicationnContext(servletContext)得到.  
+    -->  
+    <listener>  
+        <listener-class>  
+            org.springframework.web.context.ContextLoaderListener  
+        </listener-class>  
+    </listener>  
+      
+    <welcome-file-list>  
+        <welcome-file>index.jsp</welcome-file>  
+    </welcome-file-list>  
+      
+</web-app>  
