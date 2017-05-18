@@ -1,0 +1,42 @@
+apply plugin:'java'
+apply plugin:'eclipse'
+
+
+
+repositories{
+	
+	jcenter()
+//	mavenCentral()
+}
+
+dependencies{
+
+//	compile  fileTree('dist')
+	compile 'org.slf4j:slf4j-api:1.7.14'
+	compile 'org.springframework:spring-context:4.2.4.RELEASE'
+	compile 'org.springframework:spring-jms:4.2.4.RELEASE'
+	compile 'org.apache.activemq:activemq-all:5.13.0'
+	compile 'org.apache.commons:commons-pool2:2.4.2'
+	compile 'commons-lang:commons-lang:2.6'
+	compile 'commons-net:commons-net:3.4'
+	
+	
+//	testCompile  fileTree('dist')
+	testCompile 'org.springframework:spring-test:4.2.4.RELEASE'
+	testCompile 'junit:junit:4.12'
+}
+
+task runSender(type: JavaExec){
+	classpath = sourceSets.test.runtimeClasspath
+//	main = 'com.shuangzh.toolkit.activemq.test.SenderTest'
+	main = 'com.shuangzh.toolkit.activemq.apps.JmsTestTool'
+	
+}
+
+task copyJars(type:Copy){
+	from configurations.testRuntime
+	into 'dist'
+	
+}
+
+
